@@ -1,0 +1,63 @@
+import React, { Component } from "react";
+import PropTypes from "prop-types";
+import "./contact.css";
+
+// generated with snipet rcc
+class Contact extends Component {
+  // Inside way propTypes validation
+  /*     static propTypes = {
+        name: PropTypes.string.isRequired,
+        email: PropTypes.string.isRequired,
+        phone: PropTypes.string.isRequired
+    }; */
+  state = {
+    showDetails: false
+  };
+  onArrowClick = e => {
+    this.setState({
+      showDetails: !this.state.showDetails
+    });
+  };
+
+  onDeleteClick = () => {
+    console.log("Done");
+    this.props.deleteContactHandler();
+  };
+
+  render() {
+    const { name, email, phone } = this.props.contact;
+    const { showDetails } = this.state;
+    return (
+      <div className="card card-body mb-3">
+        <h4>
+          {name}{" "}
+          <i
+            onClick={this.onArrowClick}
+            className="fas fa-sort-down"
+            style={{ cursor: "pointer" }}
+          />
+          <i
+            className="fas fa-times"
+            style={{ cursor: "pointer", float: "right", color: "red" }}
+            onClick={this.onDeleteClick}
+          />
+        </h4>
+        {showDetails ? (
+          <ul className="list-group">
+            <li className="list-group-item">Email: {email}</li>
+            <li className="list-group-item">Phone: {phone}</li>
+          </ul>
+        ) : null}
+      </div>
+    );
+  }
+}
+// for state compoenent outside way
+Contact.propTypes = {
+  contact: PropTypes.object.isRequired,
+  deleteContactHandler: PropTypes.func.isRequired
+  //name: PropTypes.string.isRequired,
+  //email: PropTypes.string.isRequired,
+  //phone: PropTypes.string.isRequired
+};
+export default Contact;
